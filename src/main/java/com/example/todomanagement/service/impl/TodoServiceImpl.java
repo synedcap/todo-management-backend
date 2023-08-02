@@ -1,6 +1,6 @@
 package com.example.todomanagement.service.impl;
 
-import com.example.exception.ResourceNotFoundException;
+import com.example.todomanagement.exception.ResourceNotFoundException;
 import com.example.todomanagement.dto.TodoDto;
 import com.example.todomanagement.entity.Todo;
 import com.example.todomanagement.repository.TodoRepository;

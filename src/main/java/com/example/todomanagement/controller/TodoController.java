@@ -6,6 +6,7 @@ import com.example.todomanagement.service.TodoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class TodoController {
     private TodoService todoService;
 
     //build add todo rest api
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TodoDto> addTodo(@RequestBody TodoDto todoDto){
 
@@ -27,6 +29,7 @@ public class TodoController {
     }
 
     //build get todo rest api
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("{id}")
     public ResponseEntity<TodoDto> getTodo(@PathVariable("id") Long todoId){
 
@@ -35,6 +38,7 @@ public class TodoController {
     }
 
     //build get All todo rest api
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping()
     public ResponseEntity<List<TodoDto>> getAllTodo(){
 
@@ -44,6 +48,7 @@ public class TodoController {
     }
 
     //build update todo rest api
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<TodoDto> updateTodo(@RequestBody TodoDto todoDto, @PathVariable("id") Long todoId){
 
@@ -53,6 +58,7 @@ public class TodoController {
     }
 
     //build delete todo rest api
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteTodo(@PathVariable("id") Long todoId){
 
@@ -62,6 +68,7 @@ public class TodoController {
     }
 
     //build complete todo rest api
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PatchMapping("{id}/complete")
     public ResponseEntity<TodoDto> completeTodo(@PathVariable("id") Long todoId){
 
@@ -72,6 +79,7 @@ public class TodoController {
 
 
     //build complete todo rest api
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PatchMapping("{id}/incomplete")
     public ResponseEntity<TodoDto> inCompleteTodo(@PathVariable("id") Long todoId){
 
